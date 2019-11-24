@@ -1,7 +1,9 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"math"
 )
 
 func main() {
@@ -76,4 +78,60 @@ func main() {
 	for key, value := range m {
 		fmt.Println("key", key, "value", value)
 	}
+
+	// call func sum4
+	result := sum4(9, 7)
+	fmt.Println(result)
+
+	// call func sqrt
+	result1, err1 := sqrt(16)
+	// result1, err1 := sqrt(-16)
+	if err1 != nil {
+		fmt.Println(err1)
+	} else {
+		fmt.Println(result1)
+	}
+
+	// create a struct
+	p := person{name: "John", age: 10}
+	fmt.Println(p)
+	fmt.Println(p.age)
+
+	// pointers
+	ip1 := 7
+	fmt.Println(ip1)
+	// memory address
+	fmt.Println(&ip1)
+
+	ip2 := 7
+	inc(ip2)
+	fmt.Println(ip2)
+
+	ip3 := 7
+	incp(&ip3)
+	fmt.Println(ip3)
+}
+
+func sum4(x int, y int) int {
+	return x + y
+}
+
+func sqrt(x float64) (float64, error) {
+	if x < 0 {
+		return 0, errors.New("Undefined for negative numbers")
+	}
+	return math.Sqrt(x), nil
+}
+
+func inc(x int) {
+	x++
+}
+
+func incp(x *int) {
+	*x++
+}
+
+type person struct {
+	name string
+	age  int
 }
