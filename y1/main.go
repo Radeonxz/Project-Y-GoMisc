@@ -1,107 +1,79 @@
 package main
 
 import (
-	"encoding/json"
-	"log"
-	"math/rand"
-	"net/http"
-	"strconv"
-
-	"github.com/gorilla/mux"
+	"fmt"
 )
 
-// Book Struct(model)
-type Book struct {
-	ID     string  `json:"id"`
-	Isbn   string  `json:"isbn"`
-	Title  string  `json:"title"`
-	Description string `json:"description"`
-	Author *Author `json:"author"`
-}
-
-// Author Struct
-type Author struct {
-	Firstname string `json:"firstname"`
-	Lastname  string `json:"lastname"`
-}
-
-//Init books var as a slice book struct
-var books []Book
-
-// Get all books
-func getBooks(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(books)
-}
-
-// Get a single book
-func getBook(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	params := mux.Vars(r) // Get params from request
-	// Loop through books and find with id
-	for _, item := range books {
-		if item.ID == params["id"] {
-			json.NewEncoder(w).Encode(item)
-			return
-		}
-	}
-	json.NewEncoder(w).Encode(&Book{})
-}
-
-// Create a new book
-func createBook(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	var book Book
-	_ = json.NewDecoder(r.Body).Decode(&book)
-	book.ID = strconv.Itoa(rand.Intn(10)) // Mock ID
-	books = append(books, book)
-	json.NewEncoder(w).Encode(book)
-}
-
-// Update a book
-func updateBook(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	params := mux.Vars(r)
-	for index, item := range books {
-		if item.ID == params["id"] {
-			books = append(books[:index], books[index+1:]...)
-			var book Book
-			_ = json.NewDecoder(r.Body).Decode(&book)
-			book.ID = params["id"]
-			books = append(books, book)
-			json.NewEncoder(w).Encode(book)
-			return
-		}
-	}
-	json.NewEncoder(w).Encode(books)
-}
-
-// Delete a book
-func deleteBook(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	params := mux.Vars(r)
-	for index, item := range books {
-		if item.ID == params["id"] {
-			books = append(books[:index], books[index+1:]...)
-			break
-		}
-	}
-	json.NewEncoder(w).Encode(books)
-}
-
 func main() {
-	// Init mux router
-	r := mux.NewRouter()
+	// default will be 0
+	var x1 int
+	fmt.Println(x1)
 
-	// Mock data -@todo - add db
-	books = append(books, Book{ID: "1", Isbn: "448743", Title: "Book One", Description: "Description one", Author: &Author{Firstname: "John", Lastname: "Doe"}})
-	books = append(books, Book{ID: "2", Isbn: "785931", Title: "Book Two", Description: "Description two",, Author: &Author{Firstname: "Jane", Lastname: "Doe"}})
+	var x2 int = 5
+	var y2 int = 7
+	var sum2 int = x2 + y2
+	fmt.Println(sum2)
 
-	// Route handlers / Endpoints
-	r.HandleFunc("/api/books", getBooks).Methods("GET")
-	r.HandleFunc("/api/books/{id}", getBook).Methods("GET")
-	r.HandleFunc("/api/books", createBook).Methods("POST")
-	r.HandleFunc("/api/books/{id}", updateBook).Methods("PUT")
-	r.HandleFunc("/api/books/{id}", deleteBook).Methods("DELETE")
-	log.Fatal(http.ListenAndServe(":8000", r))
+	x3 := 5
+	y3 := 7
+	sum3 := x3 + y3
+	fmt.Println(sum3)
+
+	x4 := 5
+	if x4 > 4 {
+		fmt.Println("More than 4 do sth")
+	} else if x4 < 2 {
+		fmt.Println("Less than 2 do sth")
+	} else {
+		fmt.Println("Else do sth")
+	}
+
+	// array
+	var a1 [5]int
+	a1[2] = 7
+	fmt.Println(a1)
+
+	a2 := [5]int{1, 3, 5, 2, 6}
+	fmt.Println(a2)
+
+	// slice
+	s1 := []int{1, 3, 5, 2, 6}
+	s1 = append(s1, 999)
+	fmt.Println(s1)
+
+	// map
+	vertices := make(map[string]int)
+	vertices["triangle"] = 2
+	vertices["square"] = 3
+	vertices["dodecagon"] = 5
+	fmt.Println(vertices)
+	fmt.Println(vertices["square"])
+	delete(vertices, "square")
+	fmt.Println(vertices)
+
+	// for loop
+	for i := 0; i < 5; i++ {
+		fmt.Println(i)
+	}
+
+	// while loop
+	i := 0
+	for i < 5 {
+		fmt.Println(i)
+		i++
+	}
+
+	// array range
+	arr := []string{"a", "b", "c"}
+	for index, value := range arr {
+		fmt.Println("index", index, "value", value)
+	}
+
+	// map range
+	m := make(map[string]string)
+	m["a"] = "alpha"
+	m["b"] = "beta"
+	for key, value := range m {
+		fmt.Println("key", key, "value", value)
+	}
 }
