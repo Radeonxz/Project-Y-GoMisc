@@ -12,11 +12,11 @@ import (
 
 // Book Struct(model)
 type Book struct {
-	ID     string  `json:"id"`
-	Isbn   string  `json:"isbn"`
-	Title  string  `json:"title"`
-	Description string `json:"description"`
-	Author *Author `json:"author"`
+	ID          string  `json:"id"`
+	Isbn        string  `json:"isbn"`
+	Title       string  `json:"title"`
+	Description string  `json:"description"`
+	Author      *Author `json:"author"`
 }
 
 // Author Struct
@@ -95,7 +95,7 @@ func main() {
 
 	// Mock data -@todo - add db
 	books = append(books, Book{ID: "1", Isbn: "448743", Title: "Book One", Description: "Description one", Author: &Author{Firstname: "John", Lastname: "Doe"}})
-	books = append(books, Book{ID: "2", Isbn: "785931", Title: "Book Two", Description: "Description two",, Author: &Author{Firstname: "Jane", Lastname: "Doe"}})
+	books = append(books, Book{ID: "2", Isbn: "785931", Title: "Book Two", Description: "Description two", Author: &Author{Firstname: "Jane", Lastname: "Doe"}})
 
 	// Route handlers / Endpoints
 	r.HandleFunc("/api/books", getBooks).Methods("GET")
