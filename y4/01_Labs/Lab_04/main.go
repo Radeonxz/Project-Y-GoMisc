@@ -8,7 +8,7 @@ import (
 func main() {
 	var inputWord, result string
 	var first = true
-	fmt.Print("Enter a word:")
+	fmt.Println("Enter a word:")
 	fmt.Scanln(&inputWord)
 	for i := len(inputWord); i > 0; i-- {
 		if first {
