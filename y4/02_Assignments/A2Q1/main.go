@@ -7,18 +7,18 @@ import (
 func main() {
 	// print welcome message
 	fmt.Println("-------****-------****-------****-------****-------****-------")
-	fmt.Println("           Welcome to Montreal Taxi Fare Estimator!           ")
+	fmt.Println("           Welcome to   Blob   Taxi Fare Estimator!           ")
 	fmt.Println("-------****-------****-------****-------****-------****-------")
 
-	// declare carModel, serviceDay, serviceTime and distance as float64
-	var carModel, serviceDay, serviceTime, distance float64
-	// declare fare as float64
-	var fare float64
+	// declare carModel, serviceDay, serviceTime, distance and fare as float64
+	var carModel, serviceDay, serviceTime, distance, fare float64
 	// assign 0.81 to baseFare
 	baseFare := 0.81
 	// assign 1.55 to limoFare
 	limoFare := 1.55
+	// assign 0.0 to modelFare
 	modelFare := 0.0
+	// assign 0.0 to rushHourRatio
 	rushHourRatio := 0.0
 
 	// print car model
